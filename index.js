@@ -1,6 +1,14 @@
 const tf = require('@tensorflow/tfjs-node');
 const { EMA, MACD, ADX } = require('technicalindicators');
 const fs = require('fs').promises;
+const fsSync = require('fs');
+const path = require('path');
+
+// Funzione per scrivere su terminale e log (usiamo appendFileSync per scrittura immediata)
+function logToFileAndConsole(message) {
+  console.log(message);
+  fsSync.appendFileSync(path.join('logs', 'test_results.log'), `${message}\n`);
+}
 
 async function calculateIndicators(candles, emaFastPeriod, emaSlowPeriod, macdFast, macdSlow, macdSignal, adxPeriod) {
   const closes = candles.map(c => c[4]);
@@ -118,10 +126,24 @@ async function simulateStrategy(candles, shortTf, emaFastPeriod, emaSlowPeriod, 
 }
 
 async function runFullGridSearch() {
-  console.log('Caricamento dati...');
+  // Controlla e crea la cartella logs
+  const logsDir = path.join(__dirname, 'logs');
+  if (!fsSync.existsSync(logsDir)) {
+    fsSync.mkdirSync(logsDir);
+    logToFileAndConsole('Cartella "logs" creata.');
+  } else {
+    // Cancella tutti i file nella cartella logs
+    const files = await fs.readdir(logsDir);
+    for (const file of files) {
+      await fs.unlink(path.join(logsDir, file));
+    }
+    logToFileAndConsole('Cartella "logs" pulita.');
+  }
+
+  logToFileAndConsole('Caricamento dati...');
   const rawData = await fs.readFile('./data/btc_usdt_historical.json', 'utf8');
   const allCandles = JSON.parse(rawData);
-  console.log(`Candele totali caricate: ${allCandles.length}`);
+  logToFileAndConsole(`Candele totali caricate: ${allCandles.length}`);
 
   const shortTimeframes = [3, 5, 15];
   const fastPeriods = [5, 9, 13];
@@ -150,7 +172,7 @@ async function runFullGridSearch() {
       const volume = slice.reduce((sum, c) => sum + c[5], 0);
       candles.push([slice[0][0], open, high, low, close, volume]);
     }
-    console.log(`Candele ${shortTf}m caricate: ${candles.length}`);
+    logToFileAndConsole(`Candele ${shortTf}m caricate: ${candles.length}`);
 
     const results = [];
     for (const fast of fastPeriods) {
@@ -193,7 +215,7 @@ async function runFullGridSearch() {
                       maxDrawdown
                     };
                     results.push(result);
-                    console.log(
+                    logToFileAndConsole(
                       `TF ${shortTf}m: EMA ${fast}/${slow}, MACD ${macdFast}/${macdSlow}/${macdSignal}, ` +
                       `ADX ${adxPeriod}/${adxThreshold}, R:R ${rr.label} - ` +
                       `Trades: ${trades.length}, Win Rate: ${(winRate * 100).toFixed(2)}%, ` +
@@ -213,14 +235,14 @@ async function runFullGridSearch() {
     resultsByTf[shortTf] = results.filter(r => r.trades > 50 && r.maxDrawdown < 20).slice(0, 5);
   }
 
-  await fs.writeFile('./results_grid_search.json', JSON.stringify(resultsByTf, null, 2));
-  console.log('Risultati salvati in results_grid_search.json');
+  await fs.writeFile(path.join('logs', 'results_grid_search.json'), JSON.stringify(resultsByTf, null, 2));
+  logToFileAndConsole('Risultati salvati in logs/results_grid_search.json');
 
-  console.log('\nMigliori configurazioni per ogni timeframe (EMA + MACD + ADX + R:R):');
+  logToFileAndConsole('\nMigliori configurazioni per ogni timeframe (EMA + MACD + ADX + R:R):');
   for (const tf in resultsByTf) {
-    console.log(`\nTF ${tf}m:`);
+    logToFileAndConsole(`\nTF ${tf}m:`);
     resultsByTf[tf].forEach((r, idx) => {
-      console.log(
+      logToFileAndConsole(
         `${idx + 1}. EMA ${r.emaFast}/${r.emaSlow}, MACD ${r.macd}, ADX ${r.adxPeriod}/${r.adxThreshold}, ` +
         `R:R ${r.rr} - Trades: ${r.trades}, Win Rate: ${(r.winRate * 100).toFixed(2)}%, ` +
         `Profit netto: ${r.totalProfit.toFixed(2)}%, Avg Profit/Trade: ${r.avgProfitPerTrade.toFixed(2)}%, ` +
@@ -230,4 +252,6 @@ async function runFullGridSearch() {
   }
 }
 
-runFullGridSearch().catch(console.error);
+runFullGridSearch().catch(err => {
+  logToFileAndConsole(`Errore: ${err.message}`);
+});

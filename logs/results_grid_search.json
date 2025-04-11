@@ -1,0 +1,203 @@
+{
+  "3": [
+    {
+      "emaFast": 13,
+      "emaSlow": 19,
+      "macd": "8/30/5",
+      "adxPeriod": 14,
+      "adxThreshold": 25,
+      "rr": "2:3",
+      "trades": 761,
+      "winRate": 0.5387647831800263,
+      "totalProfit": 180.2987999999986,
+      "avgProfitPerTrade": 0.23692352168199554,
+      "maxDrawdown": 15.784786152549533
+    },
+    {
+      "emaFast": 9,
+      "emaSlow": 27,
+      "macd": "8/30/5",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "1:2",
+      "trades": 889,
+      "winRate": 0.5410573678290214,
+      "totalProfit": 179.21440000000234,
+      "avgProfitPerTrade": 0.20159100112486203,
+      "maxDrawdown": 5.599751224922316
+    },
+    {
+      "emaFast": 5,
+      "emaSlow": 27,
+      "macd": "8/30/5",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "1:2",
+      "trades": 1027,
+      "winRate": 0.5219084712755598,
+      "totalProfit": 177.54237500000278,
+      "avgProfitPerTrade": 0.17287475657254409,
+      "maxDrawdown": 5.676706646868423
+    },
+    {
+      "emaFast": 9,
+      "emaSlow": 19,
+      "macd": "8/26/5",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "1:2",
+      "trades": 1225,
+      "winRate": 0.5012244897959184,
+      "totalProfit": 173.76402500000395,
+      "avgProfitPerTrade": 0.14184818367347263,
+      "maxDrawdown": 10.466012784882976
+    },
+    {
+      "emaFast": 9,
+      "emaSlow": 19,
+      "macd": "8/26/5",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 769,
+      "winRate": 0.5331599479843954,
+      "totalProfit": 171.42869999999854,
+      "avgProfitPerTrade": 0.22292418725617497,
+      "maxDrawdown": 15.117710083823106
+    }
+  ],
+  "5": [
+    {
+      "emaFast": 5,
+      "emaSlow": 19,
+      "macd": "8/30/13",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 656,
+      "winRate": 0.5746951219512195,
+      "totalProfit": 214.35732499999867,
+      "avgProfitPerTrade": 0.32676421493902236,
+      "maxDrawdown": 9.957474680955025
+    },
+    {
+      "emaFast": 5,
+      "emaSlow": 19,
+      "macd": "12/30/9",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 654,
+      "winRate": 0.5749235474006116,
+      "totalProfit": 214.0808999999987,
+      "avgProfitPerTrade": 0.32734082568807144,
+      "maxDrawdown": 9.957474680955027
+    },
+    {
+      "emaFast": 5,
+      "emaSlow": 19,
+      "macd": "8/30/9",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 671,
+      "winRate": 0.5663189269746647,
+      "totalProfit": 205.20484999999883,
+      "avgProfitPerTrade": 0.30581944858420096,
+      "maxDrawdown": 8.542565418399462
+    },
+    {
+      "emaFast": 5,
+      "emaSlow": 19,
+      "macd": "16/30/5",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 662,
+      "winRate": 0.5649546827794562,
+      "totalProfit": 200.1986999999987,
+      "avgProfitPerTrade": 0.30241495468277746,
+      "maxDrawdown": 10.956451478107155
+    },
+    {
+      "emaFast": 5,
+      "emaSlow": 19,
+      "macd": "12/30/5",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 671,
+      "winRate": 0.5543964232488823,
+      "totalProfit": 185.20264999999853,
+      "avgProfitPerTrade": 0.2760099105812199,
+      "maxDrawdown": 9.71901578782961
+    }
+  ],
+  "15": [
+    {
+      "emaFast": 9,
+      "emaSlow": 19,
+      "macd": "8/30/13",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 350,
+      "winRate": 0.6171428571428571,
+      "totalProfit": 151.50274999999883,
+      "avgProfitPerTrade": 0.43286499999999667,
+      "maxDrawdown": 10.906092808191614
+    },
+    {
+      "emaFast": 9,
+      "emaSlow": 19,
+      "macd": "12/30/9",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 349,
+      "winRate": 0.6160458452722063,
+      "totalProfit": 150.11357499999883,
+      "avgProfitPerTrade": 0.430124856733521,
+      "maxDrawdown": 10.906092808191614
+    },
+    {
+      "emaFast": 9,
+      "emaSlow": 19,
+      "macd": "16/30/9",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 335,
+      "winRate": 0.6179104477611941,
+      "totalProfit": 145.65192499999884,
+      "avgProfitPerTrade": 0.43478186567163835,
+      "maxDrawdown": 10.906092808191545
+    },
+    {
+      "emaFast": 9,
+      "emaSlow": 19,
+      "macd": "8/30/9",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 371,
+      "winRate": 0.5983827493261455,
+      "totalProfit": 143.18889999999874,
+      "avgProfitPerTrade": 0.38595390835579174,
+      "maxDrawdown": 10.853263314586043
+    },
+    {
+      "emaFast": 9,
+      "emaSlow": 19,
+      "macd": "8/30/5",
+      "adxPeriod": 14,
+      "adxThreshold": 20,
+      "rr": "2:3",
+      "trades": 412,
+      "winRate": 0.5825242718446602,
+      "totalProfit": 142.67504999999858,
+      "avgProfitPerTrade": 0.34629866504854023,
+      "maxDrawdown": 14.069117634127725
+    }
+  ]
+}
