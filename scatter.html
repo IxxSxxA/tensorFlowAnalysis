@@ -3,28 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profitto vs Drawdown</title>
+    <title>Profitto vs Drawdown - Dark Mode</title>
     <script src="node_modules/plotly.js-dist-min/plotly.min.js"></script>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        #scatter-plot {
+            width: 80%;
+            height: 80vh;
+            margin: 0 auto;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            padding: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #00ccff;
+            text-shadow: 0 0 5px rgba(0, 204, 255, 0.5);
+        }
+    </style>
 </head>
 <body>
-    <div id="scatter-plot" style="width: 100%; height: 100vh;"></div>
+    <h1>Profitto vs Drawdown - Analisi Strategie</h1>
+    <div id="scatter-plot"></div>
     <script>
-        // Funzione per leggere il JSON e creare il grafico
         async function createScatterPlot() {
-            // Carica i dati da logs/results_grid_search.json
             const response = await fetch('./logs/results_grid_search.json');
             const data = await response.json();
 
-            // Prepara i dati per Plotly
             const traces = [];
             for (const tf in data) {
-                const tfData = data[tf]; // Top 5 configurazioni per timeframe
+                const tfData = data[tf];
                 const x = tfData.map(d => d.maxDrawdown); // Drawdown
                 const y = tfData.map(d => d.totalProfit); // Profitto netto
                 const winRate = tfData.map(d => d.winRate * 100); // Win rate in %
                 const trades = tfData.map(d => d.trades); // Numero di trade
                 const text = tfData.map(d => 
-                    `TF: ${tf}m<br>EMA: ${d.emaFast}/${d.emaSlow}<br>MACD: ${d.macd}<br>ADX: ${d.adxPeriod}/${d.adxThreshold}<br>R:R: ${d.rr}<br>Trades: ${d.trades}<br>Win Rate: ${(d.winRate * 100).toFixed(2)}%<br>Profit: ${d.totalProfit.toFixed(2)}%<br>Drawdown: ${d.maxDrawdown.toFixed(2)}%`
+                    `Timeframe: ${tf}m<br>` +
+                    `EMA: ${d.emaFast}/${d.emaSlow}<br>` +
+                    `MACD: ${d.macd}<br>` +
+                    `ADX: ${d.adxPeriod}/${d.adxThreshold}<br>` +
+                    `R:R: ${d.rr}<br>` +
+                    `Trades: ${d.trades}<br>` +
+                    `Win Rate: ${(d.winRate * 100).toFixed(2)}%<br>` +
+                    `Profitto Netto: ${d.totalProfit.toFixed(2)}%<br>` +
+                    `Max Drawdown: ${d.maxDrawdown.toFixed(2)}%`
                 );
 
                 traces.push({
@@ -36,29 +64,50 @@
                     text: text,
                     hoverinfo: 'text',
                     marker: {
-                        size: trades.map(t => Math.min(t / 10, 20)), // Dimensione proporzionale ai trade (max 20)
-                        color: winRate, // Colore basato su win rate
-                        colorscale: 'Viridis', // Scala da blu (basso) a giallo (alto)
-                        showscale: true, // Barra dei colori
-                        colorbar: { title: 'Win Rate (%)' }
+                        size: trades.map(t => Math.min(t / 10, 20)),
+                        color: winRate,
+                        colorscale: 'Viridis',
+                        showscale: true,
+                        colorbar: {
+                            title: 'Win Rate (%)',
+                            titleside: 'top',
+                            thickness: 20,
+                            bgcolor: 'rgba(0, 0, 0, 0.5)',
+                            bordercolor: '#00ccff'
+                        }
                     }
                 });
             }
 
-            // Layout del grafico
             const layout = {
-                title: 'Profitto Netto vs Massimo Drawdown',
-                xaxis: { title: 'Massimo Drawdown (%)' },
-                yaxis: { title: 'Profitto Netto (%)' },
+                title: {
+                    text: 'Profitto Netto vs Massimo Drawdown',
+                    font: { color: '#00ccff', size: 20 }
+                },
+                xaxis: {
+                    title: 'Massimo Drawdown (%) - Perdita Massima',
+                    titlefont: { color: '#e0e0e0' },
+                    tickfont: { color: '#e0e0e0' },
+                    gridcolor: '#444',
+                    tickformat: '.1f' // Una cifra decimale per chiarezza
+                },
+                yaxis: {
+                    title: 'Profitto Netto (%) - Rendimento Totale',
+                    titlefont: { color: '#e0e0e0' },
+                    tickfont: { color: '#e0e0e0' },
+                    gridcolor: '#444',
+                    tickformat: '.1f' // Una cifra decimale per chiarezza
+                },
                 hovermode: 'closest',
-                showlegend: true
+                showlegend: true,
+                paper_bgcolor: '#2a2a2a',
+                plot_bgcolor: '#2a2a2a',
+                margin: { t: 80, b: 80, l: 80, r: 80 }
             };
 
-            // Crea il grafico
             Plotly.newPlot('scatter-plot', traces, layout);
         }
 
-        // Esegui quando la pagina carica
         window.onload = createScatterPlot;
     </script>
 </body>
